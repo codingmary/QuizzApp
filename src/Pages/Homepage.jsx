@@ -3,6 +3,7 @@ import "./Homepage.scss"
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export const Homepage = ({ playerName, setPlayerName, questions, setQuestions }) => {
 
@@ -41,7 +42,7 @@ export const Homepage = ({ playerName, setPlayerName, questions, setQuestions })
     };
 
     return (
-        <div className="game-setup__container">
+        <motion.div animate={{ y: 80, scale: 1 }} initial={{ scale: 0 }} className="game-setup__container">
             <div className="game-setup">
                 <h2 className="game-setup__title">Game Setup</h2>
 
@@ -79,7 +80,7 @@ export const Homepage = ({ playerName, setPlayerName, questions, setQuestions })
                         onChange={(e) => setSelectedDifficulty(e.target.value)}
                         className="game-setup__dropdown"
                     >
-                        <option value="">Select a difficulty</option>
+                        <option value="">Select a difficulty level</option>
                         {difficulties.map((difficulty) => (
                             <option key={difficulty} value={difficulty}>
                                 {difficulty}
@@ -95,7 +96,7 @@ export const Homepage = ({ playerName, setPlayerName, questions, setQuestions })
                     Start Game
                 </button>
             </div>
-        </div>
+        </motion.div>
     )
 }
 
