@@ -53,6 +53,7 @@ export const Homepage = ({ playerName, setPlayerName, questions, setQuestions })
                     <label htmlFor="category" className="game-setup__label">
                         Category:
                     </label>
+
                     <select
                         id="category"
                         value={selectedCategory}
@@ -66,6 +67,7 @@ export const Homepage = ({ playerName, setPlayerName, questions, setQuestions })
                             </option>
                         ))}
                     </select>
+
                 </div>
                 <div className="game-setup__select">
                     <label htmlFor="difficulty" className="game-setup__label">

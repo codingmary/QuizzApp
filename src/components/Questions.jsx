@@ -2,13 +2,27 @@ import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import "./Questions.scss"
 import { useNavigate } from 'react-router-dom';
+import he from 'he';
+import { motion } from 'framer-motion';
 
 export const Questions = ({ questionIndex, questions, score, setScore, setQuestionIndex }) => {
     const [selectedAnswer, setSelectedAnswer] = useState('');
+    const [countdown, setCountdown] = useState(30);
 
     const currentQuestion = questions[questionIndex];
     const navigate = useNavigate();
 
+
+    useEffect(() => {
+        if (countdown > 0) {
+            const timer = setTimeout(() => {
+                setCountdown(countdown - 1);
+            }, 1000);
+            return () => clearTimeout(timer);
+        } else {
+            handleNextQuestion();
+        }
+    }, [countdown]);
 
     const handleFeedback = (i) => {
         if (selectedAnswer === i && selectedAnswer === currentQuestion.correct_answer) {
@@ -19,7 +33,6 @@ export const Questions = ({ questionIndex, questions, score, setScore, setQuesti
             return "correct"
         }
     }
-
 
 
     const handleAnswerSelection = (answer) => {
@@ -36,11 +49,9 @@ export const Questions = ({ questionIndex, questions, score, setScore, setQuesti
         } else {
             setQuestionIndex(questionIndex + 1);
             setSelectedAnswer('');
+            setCountdown(30)
         }
     };
-
-
-
 
 
     const sortedAnswers = useMemo(() => {
@@ -49,27 +60,29 @@ export const Questions = ({ questionIndex, questions, score, setScore, setQuesti
     }, [currentQuestion]);
 
     return (
-        <div className="question-card">
-            <h3>{currentQuestion.question}</h3>
+        <motion.div animate={{ y: 100, scale: 1 }} initial={{ scale: 0 }} className="question-card">
+            <p >Time remaining: <span className={countdown <= 5 ? "countdown-red" : ""}> {countdown}</span> seconds</p>
+            <h3>{he.decode(currentQuestion.question)}</h3>
             <ul>
                 {sortedAnswers && sortedAnswers.map((answer, index) => (
                     <li key={index}>
-                        <button
+                        <motion.button whileHover={{ scale: 1.1 }}
                             className={`answer-button ${selectedAnswer && handleFeedback(answer)
                                 }`}
                             onClick={() => handleAnswerSelection(answer)}
                             disabled={selectedAnswer}
 
                         >
-                            {answer}
-                        </button>
+                            {he.decode(answer)}
+                        </motion.button>
                     </li>
                 ))}
+                <button className="next-button" onClick={handleNextQuestion} disabled={selectedAnswer === ''}>
+                    Next
+                </button>
             </ul>
-            <button className="next-button" onClick={handleNextQuestion} disabled={selectedAnswer === ''}>
-                Next
-            </button>
-        </div>
+
+        </motion.div >
     )
 }
 

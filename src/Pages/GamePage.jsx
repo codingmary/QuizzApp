@@ -20,7 +20,7 @@ export const GamePage = ({ playerName, questions, score, setScore }) => {
   return (
     <div className="game">
       <div className="game-header">
-        <h2>Welcome, {playerName}!</h2>
+        <h2 className='welcome-text'>Welcome, {playerName}!</h2>
         <div className="question-info">
           <p>Question {questionIndex + 1} / {questions.length}</p>
           <p>Score: {score}</p>
