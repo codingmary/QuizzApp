@@ -4,7 +4,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-export const Homepage = ({ name, setName, questions, setQuestions }) => {
+export const Homepage = ({ playerName, setPlayerName, questions, setQuestions }) => {
 
     const [categories, setCategories] = useState([]);
     const [difficulties, setDifficulties] = useState(['easy', 'medium', 'hard']);
@@ -29,11 +29,7 @@ export const Homepage = ({ name, setName, questions, setQuestions }) => {
     const getQuestions = async (category, difficulty) => {
         try {
             const response = await axios.get(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`)
-            console.log(response.data.results)
             setQuestions(response.data.results)
-            console.log(questions);
-
-
         } catch (error) {
             console.error('Error fetching questions:', error)
         }
@@ -51,9 +47,9 @@ export const Homepage = ({ name, setName, questions, setQuestions }) => {
 
                 <div className="game-setup__select">
                     <label htmlFor="username" className="game-setup__label">
-                        Username:
+                        Your name:
                     </label>
-                    <input id="username" className="game-setup__input" type="text" placeholder="Enter your username" value={name} onChange={(e) => setName(e.target.value)} />
+                    <input id="username" className="game-setup__input" type="text" placeholder="Enter your name" value={playerName} onChange={(e) => setPlayerName(e.target.value)} />
                     <label htmlFor="category" className="game-setup__label">
                         Category:
                     </label>
@@ -102,8 +98,8 @@ export const Homepage = ({ name, setName, questions, setQuestions }) => {
 }
 
 Homepage.propTypes = {
-    name: PropTypes.string.isRequired,
-    setName: PropTypes.func.isRequired,
+    playerName: PropTypes.string.isRequired,
+    setPlayerName: PropTypes.func.isRequired,
     questions: PropTypes.array.isRequired,
     setQuestions: PropTypes.func.isRequired,
 };

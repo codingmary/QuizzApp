@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import axios from 'axios'
 import './App.css'
 import { Header } from './components/Header'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -8,7 +7,7 @@ import { ResultsPage } from './Pages/ResultsPage'
 import { GamePage } from './Pages/GamePage'
 
 function App() {
-  const [name, setName] = useState('') // 
+  const [playerName, setPlayerName] = useState('') // 
   const [questions, setQuestions] = useState([]);
   const [score, setScore] = useState(0);
 
@@ -20,9 +19,9 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Homepage questions={questions} setQuestions={setQuestions} name={name} setName={setName} />} />
-        <Route path="/play" element={<GamePage questions={questions} setQuestions={setQuestions} score={score} />} />
-        <Route path="/results" element={<ResultsPage />} />
+        <Route path="/" element={<Homepage questions={questions} setQuestions={setQuestions} playerName={playerName} setPlayerName={setPlayerName} />} />
+        <Route path="/play" element={<GamePage playerName={playerName} questions={questions} setQuestions={setQuestions} score={score} setScore={setScore} />} />
+        <Route path="/results" element={<ResultsPage score={score} setScore={setScore} />} />
       </Routes>
     </BrowserRouter>
   )
