@@ -10,6 +10,11 @@
     gap: 2em;
 }
 
+h2 {
+    color: #fff;
+    text-shadow: #fff 0px 0px 2px;
+}
+
 .play-again-btn {
     font-size: 1em;
     display: block;
@@ -20,6 +25,6 @@
     cursor: pointer;
 
     &:hover {
-        background-color: #f5f5f5;
+        background-color: #17bdef;
     }
 }

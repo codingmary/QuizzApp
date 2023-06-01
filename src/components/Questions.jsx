@@ -61,7 +61,7 @@ export const Questions = ({ questionIndex, questions, score, setScore, setQuesti
 
     return (
         <motion.div animate={{ y: 100, scale: 1 }} initial={{ scale: 0 }} className="question-card">
-            <p >Time remaining: <span className={countdown <= 5 ? "countdown-red" : ""}> {countdown}</span> seconds</p>
+            <p >Time remaining: <span className={countdown <= 5 ? "countdown-red" : "countdown"}> {countdown}</span> seconds</p>
             <h3>{he.decode(currentQuestion.question)}</h3>
             <ul>
                 {sortedAnswers && sortedAnswers.map((answer, index) => (
@@ -81,7 +81,6 @@ export const Questions = ({ questionIndex, questions, score, setScore, setQuesti
                     Next
                 </button>
             </ul>
-
         </motion.div >
     )
 }
