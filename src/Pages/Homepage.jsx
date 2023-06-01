@@ -106,5 +106,4 @@ Homepage.propTypes = {
     setPlayerName: PropTypes.func.isRequired,
     questions: PropTypes.array.isRequired,
     setQuestions: PropTypes.func.isRequired,
-    getQuestions: PropTypes.func.isRequired,
 };
