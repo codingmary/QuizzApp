@@ -8,8 +8,9 @@ import { Questions } from '../components/Questions';
 
 
 
-export const GamePage = ({ playerName, questions, score, setScore }) => {
+export const GamePage = ({ playerName, questions, score, setScore, setQuestions, getQuestions }) => {
   const [questionIndex, setQuestionIndex] = useState(0);
+
 
   if (questions.length === 0) {
     return <div className="game">

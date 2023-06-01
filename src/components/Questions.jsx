@@ -60,7 +60,7 @@ export const Questions = ({ questionIndex, questions, score, setScore, setQuesti
     }, [currentQuestion]);
 
     return (
-        <motion.div animate={{ y: 80, scale: 1 }} initial={{ scale: 0 }} className="question-card">
+        <motion.div animate={{ y: 50, scale: 1 }} initial={{ scale: 0 }} className="question-card">
             <p >Time remaining: <span className={countdown <= 5 ? "countdown-red" : "countdown"}> {countdown}</span> seconds</p>
             <h3>{he.decode(currentQuestion.question)}</h3>
             <ul>

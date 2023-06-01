@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Homepage } from './Pages/Homepage'
 import { ResultsPage } from './Pages/ResultsPage'
 import { GamePage } from './Pages/GamePage'
+import axios from 'axios'
 
 function App() {
   const [playerName, setPlayerName] = useState('') // 
@@ -13,7 +14,15 @@ function App() {
 
 
 
+  // const getQuestions = async (category, difficulty) => {
 
+  //   try {
+  //     const response = await axios.get(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`)
+  //     setQuestions(response.data.results);
+  //   } catch (error) {
+  //     console.error('Error fetching questions:', error)
+  //   }
+  // }
 
   return (
     <BrowserRouter>

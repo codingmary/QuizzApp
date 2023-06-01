@@ -27,7 +27,7 @@ export const Homepage = ({ playerName, setPlayerName, questions, setQuestions })
     };
 
 
-    const getQuestions = async (category, difficulty) => {
+    const getQuestions = async (category = '9', difficulty = "easy") => {
         try {
             const response = await axios.get(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`)
             setQuestions(response.data.results)
@@ -36,9 +36,10 @@ export const Homepage = ({ playerName, setPlayerName, questions, setQuestions })
         }
     }
 
-    const handleStartGame = () => {
+    const handleStartGame = async () => {
         getQuestions(selectedCategory, selectedDifficulty);
         navigate('/play');
+
     };
 
     return (
@@ -105,4 +106,5 @@ Homepage.propTypes = {
     setPlayerName: PropTypes.func.isRequired,
     questions: PropTypes.array.isRequired,
     setQuestions: PropTypes.func.isRequired,
+    getQuestions: PropTypes.func.isRequired,
 };
