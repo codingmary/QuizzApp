@@ -43,7 +43,7 @@ export const Homepage = ({ playerName, setPlayerName, questions, setQuestions })
     };
 
     return (
-        <motion.div animate={{ y: 80, scale: 1 }} initial={{ scale: 0 }} className="game-setup__container">
+        <motion.div animate={{ scale: 1 }} initial={{ scale: 0 }} className="game-setup__container">
             <div className="game-setup">
                 <h2 className="game-setup__title">Game Setup</h2>
 
