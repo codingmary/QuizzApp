@@ -4,44 +4,28 @@ import "./Questions.scss"
 import { useNavigate } from 'react-router-dom';
 import he from 'he';
 import { motion } from 'framer-motion';
+import Answers from './Answers';
 
 export const Questions = ({ questionIndex, questions, score, setScore, setQuestionIndex }) => {
     const [selectedAnswer, setSelectedAnswer] = useState('');
     const [countdown, setCountdown] = useState(30);
+
 
     const currentQuestion = questions[questionIndex];
     const navigate = useNavigate();
 
 
     useEffect(() => {
-        if (countdown > 0) {
+        if (countdown > 0 && selectedAnswer === '') {
             const timer = setTimeout(() => {
                 setCountdown(countdown - 1);
             }, 1000);
             return () => clearTimeout(timer);
-        } else {
+        } else if (countdown === 0) {
             handleNextQuestion();
         }
     }, [countdown]);
 
-    const handleFeedback = (i) => {
-        if (selectedAnswer === i && selectedAnswer === currentQuestion.correct_answer) {
-            return "correct"
-        } else if (selectedAnswer === i && selectedAnswer !== currentQuestion.correct_answer) {
-            return "incorrect"
-        } else if (i === currentQuestion.correct_answer) {
-            return "correct"
-        }
-    }
-
-
-    const handleAnswerSelection = (answer) => {
-        setSelectedAnswer(answer);
-
-        if (answer === currentQuestion.correct_answer) {
-            setScore(score + 1);
-        }
-    };
 
     const handleNextQuestion = () => {
         if (questionIndex >= questions.length - 1) {
@@ -49,15 +33,16 @@ export const Questions = ({ questionIndex, questions, score, setScore, setQuesti
         } else {
             setQuestionIndex(questionIndex + 1);
             setSelectedAnswer('');
-            setCountdown(30)
+            setCountdown(30);
         }
     };
 
-
+    //useMemo used to avoid answers being sorted on every render
     const sortedAnswers = useMemo(() => {
         const answers = [...currentQuestion.incorrect_answers, currentQuestion.correct_answer];
         return answers.sort(() => Math.random() - 0.5);
     }, [currentQuestion]);
+
 
     return (
         <motion.div animate={{ y: 50, scale: 1 }} initial={{ scale: 0 }} className="question-card">
@@ -65,21 +50,11 @@ export const Questions = ({ questionIndex, questions, score, setScore, setQuesti
             <h3>{he.decode(currentQuestion.question)}</h3>
             <ul>
                 {sortedAnswers && sortedAnswers.map((answer, index) => (
-                    <li key={index}>
-                        <motion.button whileHover={{ scale: 1.1 }}
-                            className={`answer-button ${selectedAnswer && handleFeedback(answer)
-                                }`}
-                            onClick={() => handleAnswerSelection(answer)}
-                            disabled={selectedAnswer}
-
-                        >
-                            {he.decode(answer)}
-                        </motion.button>
-                    </li>
+                    <>
+                        <Answers index={index} answer={answer} setSelectedAnswer={setSelectedAnswer} score={score} setScore={setScore} selectedAnswer={selectedAnswer} currentQuestion={currentQuestion} />
+                    </>
                 ))}
-                <button className="next-button" onClick={handleNextQuestion} disabled={selectedAnswer === ''}>
-                    Next
-                </button>
+                <button className="next-button" onClick={handleNextQuestion} disabled={selectedAnswer === ''}>Next</button>
             </ul>
         </motion.div >
     )

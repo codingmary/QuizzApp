@@ -13,17 +13,6 @@ function App() {
   const [score, setScore] = useState(0);
 
 
-
-  // const getQuestions = async (category, difficulty) => {
-
-  //   try {
-  //     const response = await axios.get(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`)
-  //     setQuestions(response.data.results);
-  //   } catch (error) {
-  //     console.error('Error fetching questions:', error)
-  //   }
-  // }
-
   return (
     <BrowserRouter>
       <Header />

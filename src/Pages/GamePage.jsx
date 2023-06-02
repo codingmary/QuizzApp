@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+
 import './GamePage.scss';
 import Loader from '../components/Loader';
 import { Questions } from '../components/Questions';
@@ -8,7 +8,7 @@ import { Questions } from '../components/Questions';
 
 
 
-export const GamePage = ({ playerName, questions, score, setScore, setQuestions, getQuestions }) => {
+export const GamePage = ({ playerName, questions, score, setScore }) => {
   const [questionIndex, setQuestionIndex] = useState(0);
 
 

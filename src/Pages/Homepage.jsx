@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import "./Homepage.scss"
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import NameSetup from '../components/NameSetup';
+import CategorySetup from '../components/CategorySetup';
+import DifficultySetup from '../components/DifficultySetup';
+import ButtonStartGame from '../components/ButtonStartGame';
 
 export const Homepage = ({ playerName, setPlayerName, questions, setQuestions }) => {
 
@@ -39,63 +43,18 @@ export const Homepage = ({ playerName, setPlayerName, questions, setQuestions })
     const handleStartGame = async () => {
         getQuestions(selectedCategory, selectedDifficulty);
         navigate('/play');
-
     };
 
     return (
         <motion.div animate={{ scale: 1 }} initial={{ scale: 0 }} className="game-setup__container">
             <div className="game-setup">
                 <h2 className="game-setup__title">Game Setup</h2>
-
                 <div className="game-setup__select">
-                    <label htmlFor="username" className="game-setup__label">
-                        Your name:
-                    </label>
-                    <input id="username" className="game-setup__input" type="text" placeholder="Enter your name" value={playerName} onChange={(e) => setPlayerName(e.target.value)} />
-                    <label htmlFor="category" className="game-setup__label">
-                        Category:
-                    </label>
-
-                    <select
-                        id="category"
-                        value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}
-                        className="game-setup__dropdown"
-                    >
-                        <option value="">Select a category</option>
-                        {categories.map((category) => (
-                            <option key={category.id} value={category.id}>
-                                {category.name}
-                            </option>
-                        ))}
-                    </select>
-
+                    <NameSetup playerName={playerName} setPlayerName={setPlayerName} />
+                    <CategorySetup categories={categories} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+                    <DifficultySetup difficulties={difficulties} selectedDifficulty={selectedDifficulty} setSelectedDifficulty={setSelectedDifficulty} />
                 </div>
-                <div className="game-setup__select">
-                    <label htmlFor="difficulty" className="game-setup__label">
-                        Difficulty:
-                    </label>
-                    <select
-                        id="difficulty"
-                        value={selectedDifficulty}
-                        onChange={(e) => setSelectedDifficulty(e.target.value)}
-                        className="game-setup__dropdown"
-                    >
-                        <option value="">Select a difficulty level</option>
-                        {difficulties.map((difficulty) => (
-                            <option key={difficulty} value={difficulty}>
-                                {difficulty}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <button
-                    onClick={handleStartGame}
-                    disabled={!selectedCategory || !selectedDifficulty}
-                    className="game-setup__button"
-                >
-                    Start Game
-                </button>
+                <ButtonStartGame handleStartGame={handleStartGame} selectedCategory={selectedCategory} selectedDifficulty={selectedDifficulty} />
             </div>
         </motion.div>
     )
