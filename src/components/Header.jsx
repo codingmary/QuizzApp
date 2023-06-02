@@ -1,5 +1,4 @@
 
-
 import { Link } from 'react-router-dom'
 import './Header.scss'
 
@@ -7,7 +6,7 @@ export const Header = () => {
     return (
         <div className='header'>
             <div className='Title'>
-                <h1 >Quiz Up!
+                <h1>  <Link to="/">Quiz Up!</Link>
                     <div className="Title__highlight"></div>
                 </h1>
                 <div className="Title__underline"></div>
